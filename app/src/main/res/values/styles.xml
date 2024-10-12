@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your app's color palette here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Customize other theme attributes as needed -->
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+        <!-- Enable view binding -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <!-- You can define other styles here as needed -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+</resources>
