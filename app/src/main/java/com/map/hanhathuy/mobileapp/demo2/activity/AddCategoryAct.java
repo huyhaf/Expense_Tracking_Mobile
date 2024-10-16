@@ -1,5 +1,6 @@
 package com.map.hanhathuy.mobileapp.demo2.activity;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -75,7 +76,8 @@ public class AddCategoryAct extends AppCompatActivity {
         boolean success = categoryDAO.add(newCategory, dbHelper);
         if (success) {
             Toast.makeText(this, "Category added successfully", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(AddCategoryAct.this, AddTransactionAct.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Failed to add category", Toast.LENGTH_SHORT).show();
         }

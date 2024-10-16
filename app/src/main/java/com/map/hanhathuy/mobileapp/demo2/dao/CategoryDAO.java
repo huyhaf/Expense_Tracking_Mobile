@@ -101,6 +101,7 @@ public class CategoryDAO {
         values.put("name", category.getName());
         values.put("idParent", category.getParent());
         values.put("note", category.getNote());
+        values.put("icon",category.getIcon());
 
         long categoryId = db.insert("category", null, values);
 

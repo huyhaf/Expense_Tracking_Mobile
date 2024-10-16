@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class HomeAct extends AppCompatActivity {
     private Button buttonTongThu, buttonTongChi, buttonThemGiaoDich;
     private ListView listViewTransactions;
     private TextView textViewTransaction;
+    private ImageButton buttonCalendar;
+    private Date currentDisplayDate;
 
     private TransactionDAO transactionDAO;
     private TransactionAdapter transactionAdapter;
@@ -45,6 +48,15 @@ public class HomeAct extends AppCompatActivity {
         buttonThemGiaoDich = findViewById(R.id.buttonThemGiaoDich);
         textViewTransaction = findViewById(R.id.textCountTransaction);
         buttonThemGiaoDich = findViewById(R.id.buttonThemGiaoDich);
+        buttonCalendar = findViewById(R.id.buttonCalendar);
+
+        // Check if a date was passed from MonthlyViewActivity
+        long selectedDateMillis = getIntent().getLongExtra("SELECTED_DATE", -1);
+        if (selectedDateMillis != -1) {
+            currentDisplayDate = new Date(selectedDateMillis);
+        } else {
+            currentDisplayDate = new Date();
+        }
 
         // Set current date
         setCurrentDate();
@@ -63,13 +75,13 @@ public class HomeAct extends AppCompatActivity {
     private void setCurrentDate() {
         if (textViewDate != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String currentDate = dateFormat.format(new Date());
+            String currentDate = dateFormat.format(currentDisplayDate);
             textViewDate.setText(currentDate);
         }
     }
 
     private void loadTransactions() {
-        List<Transaction> transactions = transactionDAO.search(new Date());
+        List<Transaction> transactions = transactionDAO.search(currentDisplayDate);
         transactionAdapter = new TransactionAdapter(this, transactions);
         listViewTransactions.setAdapter(transactionAdapter);
         if (textViewTransaction != null) {
@@ -81,8 +93,8 @@ public class HomeAct extends AppCompatActivity {
         buttonTongThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double totalIncome = transactionDAO.getTotalIncome(new Date());
-                int incomeCount = transactionDAO.getIncomeCount(new Date());
+                double totalIncome = transactionDAO.getTotalIncome(currentDisplayDate);
+                int incomeCount = transactionDAO.getIncomeCount(currentDisplayDate);
                 buttonTongThu.setText(String.format(Locale.getDefault(), "Tổng thu: %.2f (%d lần)", totalIncome, incomeCount));
                 buttonTongThu.setTextColor(Color.GREEN);
             }
@@ -91,8 +103,8 @@ public class HomeAct extends AppCompatActivity {
         buttonTongChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double totalExpense = transactionDAO.getTotalExpense(new Date());
-                int expenseCount = transactionDAO.getExpenseCount(new Date());
+                double totalExpense = transactionDAO.getTotalExpense(currentDisplayDate);
+                int expenseCount = transactionDAO.getExpenseCount(currentDisplayDate);
                 buttonTongChi.setText(String.format(Locale.getDefault(), "Tổng chi: %.2f (%d lần)", totalExpense, expenseCount));
                 buttonTongChi.setTextColor(Color.RED);
             }
@@ -100,6 +112,11 @@ public class HomeAct extends AppCompatActivity {
 
         buttonThemGiaoDich.setOnClickListener(v -> {
             Intent intent = new Intent(HomeAct.this, AddTransactionAct.class);
+            startActivity(intent);
+        });
+
+        buttonCalendar.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeAct.this, MonthlyViewAct.class);
             startActivity(intent);
         });
     }

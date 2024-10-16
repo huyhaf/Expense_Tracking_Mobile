@@ -7,6 +7,11 @@
     <string name="parent_category">Parent Category</string>
     <string name="add">Add</string>
     <string name="reset">Reset</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="open_monthly_calendar">Open monthly calendar</string>
+    <string name="tong_thu">Tổng thu</string>
+    <string name="tong_chi">Tổng chi</string>
+    <string name="them_giao_dich">Thêm giao dịch</string>
     <string-array name="in_out_array">
         <item>Income</item>
         <item>Outcome</item>

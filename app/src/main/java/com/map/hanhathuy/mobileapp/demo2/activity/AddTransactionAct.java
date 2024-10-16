@@ -110,7 +110,8 @@ public class AddTransactionAct extends AppCompatActivity {
 
             if (success) {
                 Toast.makeText(this, "Transaction added successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(AddTransactionAct.this,HomeAct.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(this, "Failed to add transaction", Toast.LENGTH_SHORT).show();
             }
